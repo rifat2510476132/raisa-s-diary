@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+.dart_tool/
+.packages
+build/
+.pub-cache/
+
+# Environment
+.env
+.env.local
+*.env
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Flutter
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/**/*.g.dart
+frontend/**/generated/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Build outputs
+backend/dist/
+frontend/build/
+*.apk
+*.aab
+*.ipa
+
+# Uploads (local dev)
+backend/uploads/
+
+# Coverage
+coverage/

@@ -1,0 +1,11 @@
+# Netlify — এক ক্লিকে web link (Flutter লাগবে না)
+# share-web = সম্পূর্ণ কাজ করা diary + Tahsin AI (browser এ)
+
+[build]
+  command = "echo Static site ready"
+  publish = "share-web"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

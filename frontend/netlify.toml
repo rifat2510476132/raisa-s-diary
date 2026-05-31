@@ -1,0 +1,12 @@
+[build]
+  base = "frontend"
+  command = "flutter pub get && flutter build web --release --dart-define=API_BASE_URL=$API_BASE_URL"
+  publish = "build/web"
+
+[build.environment]
+  FLUTTER_VERSION = "3.24.0"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
