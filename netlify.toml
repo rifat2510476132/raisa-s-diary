@@ -1,9 +1,19 @@
-# Netlify — সবার জন্য web link (দ্রুত deploy)
-# share-web = browser এ diary + Tahsin (localStorage, password লাগে না)
+# Netlify — পুরো Flutter Web (repo root এ থাকতে হবে)
+# UI তে Base directory খালি রাখো — শুধু এই ফাইল ব্যবহার হবে
+
+[[plugins]]
+  package = "netlify-plugin-flutter"
+
+  [plugins.inputs]
+    channel = "stable"
 
 [build]
-  command = "true"
-  publish = "share-web"
+  base = "frontend"
+  publish = "build/web"
+  command = "flutter pub get && flutter build web --release --dart-define=API_BASE_URL=$API_BASE_URL"
+
+[build.environment]
+  FLUTTER_VERSION = "stable"
 
 [[redirects]]
   from = "/*"

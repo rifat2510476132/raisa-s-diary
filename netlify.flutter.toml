@@ -1,0 +1,14 @@
+# পুরো Flutter app deploy করতে Netlify UI তে এই settings ব্যবহার করুন
+# (অথবা netlify.toml এর নাম বদলে এটা netlify.toml করুন)
+
+[build]
+  command = "bash scripts/netlify-build.sh"
+  publish = "frontend/build/web"
+
+[build.environment]
+  FLUTTER_VERSION = "3.24.5"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
