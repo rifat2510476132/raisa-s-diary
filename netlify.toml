@@ -1,8 +1,8 @@
-# Netlify — এক ক্লিকে web link (Flutter লাগবে না)
-# share-web = সম্পূর্ণ কাজ করা diary + Tahsin AI (browser এ)
+# Netlify — সবার জন্য web link (দ্রুত deploy)
+# share-web = browser এ diary + Tahsin (localStorage, password লাগে না)
 
 [build]
-  command = "echo Static site ready"
+  command = "true"
   publish = "share-web"
 
 [[redirects]]
