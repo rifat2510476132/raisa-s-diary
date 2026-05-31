@@ -24,14 +24,33 @@ const App = {
   mood: null,
   typingTimer: null,
 
+  /** user null/ভাঙা থাকলে crash এড়াতে */
+  ensureUser() {
+    const saved = STORE.get('user', null);
+    if (saved && typeof saved === 'object' && saved.name) {
+      this.user = saved;
+      return this.user;
+    }
+    this.autoEnter();
+    return this.user;
+  },
+
+  displayName() {
+    const u = this.user;
+    return u && u.name ? u.name : 'Raisa';
+  },
+
   init() {
     initParticles();
     if (STORE.get('dark', false)) document.body.classList.add('dark');
     this.user = STORE.get('user', null);
+    if (STORE.get('onboarding') && (!this.user || !this.user.name)) {
+      this.ensureUser();
+    }
     setTimeout(() => {
       if (!STORE.get('onboarding')) this.go('onboarding');
       else {
-        if (!this.user) this.autoEnter();
+        this.ensureUser();
         this.go('home');
       }
     }, 1200);
@@ -63,6 +82,7 @@ const App = {
   },
 
   saveDiary(content, title, mood) {
+    this.ensureUser();
     const emotion = TahsinAI.emotion(content);
     const reply = TahsinAI.reply(content, emotion);
     const entries = STORE.get('diaries', []);
@@ -147,12 +167,13 @@ const App = {
   },
 
   viewHome() {
-    const u = this.user;
+    const u = this.ensureUser();
+    const userName = this.displayName();
     const entries = STORE.get('diaries', []).slice(0, 5);
     const msg = TahsinAI.dailyMessage();
     return `<div class="screen active">
       <div class="row mb" style="justify-content:space-between;align-items:center">
-        <div><h2>Hello, ${u.name} 🌸</h2><p class="small">${new Date().toLocaleDateString('en', { weekday: 'long', month: 'short', day: 'numeric' })}</p></div>
+        <div><h2>Hello, ${userName} 🌸</h2><p class="small">${new Date().toLocaleDateString('en', { weekday: 'long', month: 'short', day: 'numeric' })}</p></div>
         <span class="streak">🔥 ${u.streak || 0}</span>
       </div>
       <div class="glass row">
