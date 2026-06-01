@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.raisadiary.raisa_diary"><uses-permission android:name="android.permission.INTERNET" /> xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
@@ -11,7 +11,7 @@
     <application
         android:label="Jannatul Maowa Raisa's Diary"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@android:mipmap/sym_def_app_icon"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"

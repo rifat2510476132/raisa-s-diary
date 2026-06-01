@@ -10,14 +10,17 @@ import 'providers/providers.dart';
 import 'router/app_router.dart';
 
 void main() async {
+  // ১. ফ্লাটার বাইন্ডিং নিশ্চিত করছি
   WidgetsFlutterBinding.ensureInitialized();
 
+  // ২. স্ট্যাটাস বার সেটআপ
   if (PlatformUtils.isMobile) {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     );
   }
 
+  // ৩. সার্ভিসগুলো ইনিশিয়ালাইজ করছি
   final offline = OfflineService();
   await offline.init();
 
@@ -26,9 +29,12 @@ void main() async {
     await notifications.init();
   }
 
+  // ৪. অ্যাপ রান করছি এবং সার্ভিস ইনজেক্ট করছি
   runApp(
     ProviderScope(
-      overrides: [offlineProvider.overrideWithValue(offline)],
+      overrides: [
+        offlineProvider.overrideWithValue(offline),
+      ],
       child: const RaisaDiaryApp(),
     ),
   );
@@ -39,6 +45,7 @@ class RaisaDiaryApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // এখানে প্রোভাইডার ওয়াচ করছি
     final themeMode = ref.watch(themeModeProvider);
     final router = ref.watch(routerProvider);
 
@@ -49,13 +56,14 @@ class RaisaDiaryApp extends ConsumerWidget {
       darkTheme: AppTheme.dark(),
       themeMode: themeMode,
       routerConfig: router,
+      // ওয়েব এবং মোবাইল উভয়ের জন্য বিল্ডার
       builder: (context, child) {
-        // Web: center app like a phone frame on large screens
         if (kIsWeb) {
           return Center(
             child: Container(
               constraints: const BoxConstraints(maxWidth: 430),
               decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.12),
@@ -64,7 +72,7 @@ class RaisaDiaryApp extends ConsumerWidget {
                   ),
                 ],
               ),
-              child: child ?? const SizedBox.shrink(),
+              child: child,
             ),
           );
         }
